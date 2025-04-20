@@ -2,4 +2,4 @@ kind: Kustomization
 namespace:  keycloak
 resources:
   - namespace.yaml
-  - helmreelase.yaml
+  - helmrelease.yaml
