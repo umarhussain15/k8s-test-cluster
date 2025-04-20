@@ -1,0 +1,23 @@
+version: "3"
+vars:
+  CLUSTER_NAME: k8s-test-cluster
+  K8S_VERSION: "v1.32.3"
+tasks:
+  setup-kubectl-context:
+    internal: true
+    cmds:
+      - kubectl config use-context kind-{{.CLUSTER_NAME}}
+  setup-cluster:
+    desc: Create kind cluster if missing
+    cmds:
+      - |
+        if kind get clusters | grep {{.CLUSTER_NAME}} &> /dev/null; then
+          echo "cluster already present";
+        else
+          kind create cluster --name "{{.CLUSTER_NAME}}" --image "kindest/node:{{.K8S_VERSION}}" --wait 180s
+        fi
+  setup-flux-operator:
+    desc:  Install flux operator with helm
+    cmds:
+      - task: setup-kubectl-context
+      - helm upgrade flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator --namespace flux-system --create-namespace --install
