@@ -2,6 +2,10 @@ version: "3"
 vars:
   CLUSTER_NAME: k8s-test-cluster
   K8S_VERSION: "v1.32.3"
+  # TEST passwords only in clear
+  POSTGRES_PASSWORD: postGresPassword123
+  # TEST password only in clear
+  KEYCLOAK_PASSWORD: keycloakPassword123
 tasks:
   setup-k8s-context:
     internal: true
@@ -26,3 +30,8 @@ tasks:
     cmds:
       - task: setup-k8s-context
       - kubectl apply -f cluster/flux-system/flux-instance.yaml
+  create-secrets:
+    desc: Create existing secrets needed
+    cmds:
+      - task: setup-k8s-context
+      - kubectl -n keycloak create secret generic keycloak-admin-password --from-literal=postgresPassword={{.POSTGRES_PASSWORD}} --from-literal=adminPassword={{.KEYCLOAK_PASSWORD}}
