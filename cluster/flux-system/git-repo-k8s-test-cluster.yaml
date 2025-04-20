@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: k8s-test-cluster
+  namespace: flux-system
+spec:
+  interval: 30s
+  url:  "ssh://git@github.com/umarhussain15/k8s-test-cluster.git"
+  ref:
+    branch: trunk
+  secretRef:
+    name: flux-system
