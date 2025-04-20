@@ -1,0 +1,6 @@
+kind: Kustomization
+namespace:  flux-system
+resources:
+  - flux-instance.yaml
+  - helm-repos.yaml
+  - tofu-controller.yaml
