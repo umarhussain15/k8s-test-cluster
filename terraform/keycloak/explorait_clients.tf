@@ -6,6 +6,8 @@ resource "keycloak_openid_client" "customer_frontend" {
   enabled             = true
 
   access_type         = "PUBLIC"
+  standard_flow_enabled = true
+  direct_access_grants_enabled = true
 
   web_origins = [
     "+"
