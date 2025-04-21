@@ -1,4 +1,4 @@
-resource "keycloak_realm" "realm" {
+resource "keycloak_realm" "customer_realm" {
   realm             = "customer"
   enabled           = true
   display_name      = "customer realm"
