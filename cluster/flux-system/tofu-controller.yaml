@@ -16,3 +16,6 @@ spec:
     crds: CreateReplace
   values:
     allowCrossNamespaceRefs: true
+    runner:
+      allowedNamespaces:
+      - keycloak
