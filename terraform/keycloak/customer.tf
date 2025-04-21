@@ -5,6 +5,7 @@ resource "keycloak_realm" "realm" {
   display_name_html = "<b>customer realm</b>"
 
   login_theme = "base"
+  registration_allowed = false
 
   access_code_lifespan = "1h"
 
