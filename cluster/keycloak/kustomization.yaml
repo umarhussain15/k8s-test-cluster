@@ -3,3 +3,4 @@ namespace:  keycloak
 resources:
   - namespace.yaml
   - helmrelease.yaml
+  - terraform.yaml

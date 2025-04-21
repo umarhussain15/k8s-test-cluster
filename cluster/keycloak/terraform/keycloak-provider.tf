@@ -1,0 +1,17 @@
+variable "client_id" {
+  type = string
+}
+variable "client_secret" {
+  type      = string
+  sensitive = true
+}
+variable "realm" {
+  type    = string
+  default = "master"
+}
+provider "keycloak" {
+  client_id     = var.client_id
+  client_secret = var.client_secret
+  url           = "http://keycloak:keycloak:8080"
+  realm         = var.realm
+}

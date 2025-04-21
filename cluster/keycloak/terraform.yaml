@@ -1,0 +1,18 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: keycloak
+spec:
+  approvePlan: "" # or you can omit this field
+  interval: 1m
+  path: ./cluster/keycloak/terraform
+  sourceRef:
+    kind: GitRepository
+    name: k8s-test-cluster
+    namespace: flux-system
+  varsFrom:
+  - kind: Secret
+    name: keycloak-terraform-admin-client
+    varKeys:
+    - clientId:client_id
+    - clientSecret:client_secret
