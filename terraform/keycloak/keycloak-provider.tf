@@ -21,6 +21,6 @@ variable "realm" {
 provider "keycloak" {
   client_id     = var.client_id
   client_secret = var.client_secret
-  url           = "http://keycloak.keycloak:8080"
+  url           = "http://keycloak.keycloak:80"
   realm         = var.realm
 }
