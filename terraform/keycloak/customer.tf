@@ -1,5 +1,5 @@
 resource "keycloak_realm" "realm" {
-  realm             = "my-realm"
+  realm             = "customer"
   enabled           = true
   display_name      = "customer realm"
   display_name_html = "<b>customer realm</b>"
