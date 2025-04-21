@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    keycloak = {
+      source = "keycloak/keycloak"
+      version = "5.2.0"
+    }
+  }
+}
+
 variable "client_id" {
   type = string
 }
