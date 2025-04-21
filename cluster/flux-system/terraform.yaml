@@ -3,7 +3,7 @@ kind: Terraform
 metadata:
   name: keycloak
 spec:
-  approvePlan: "plan-trunk-643de367fa"
+  approvePlan: "plan-trunk-88626ff7fd"
   interval: 1m
   path: ./terraform/keycloak
   sourceRef:
