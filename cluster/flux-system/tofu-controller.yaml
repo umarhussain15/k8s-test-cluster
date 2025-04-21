@@ -17,5 +17,6 @@ spec:
   values:
     allowCrossNamespaceRefs: true
     runner:
-      allowedNamespaces:
-      - keycloak
+      serviceAccount:
+        allowedNamespaces:
+        - keycloak
