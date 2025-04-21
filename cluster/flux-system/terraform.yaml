@@ -5,7 +5,7 @@ metadata:
 spec:
   approvePlan: "" # or you can omit this field
   interval: 1m
-  path: ./cluster/terraform/keycloak
+  path: ./terraform/keycloak
   sourceRef:
     kind: GitRepository
     name: k8s-test-cluster
