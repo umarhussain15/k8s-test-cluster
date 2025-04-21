@@ -13,6 +13,6 @@ spec:
   varsFrom:
   - kind: Secret
     name: keycloak-terraform-admin-client
-    varKeys:
+    varsKeys:
     - clientId:client_id
     - clientSecret:client_secret
