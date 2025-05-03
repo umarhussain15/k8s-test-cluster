@@ -37,7 +37,6 @@ spec:
         [FILTER]
             Name  modify
             Match kube.*
-            Rename  log content
             Rename  kubernetes_pod_name k8s.pod.name
             Rename  kubernetes_namespace_name k8s.namespace.name
             Remove  kubernetes_container_image
