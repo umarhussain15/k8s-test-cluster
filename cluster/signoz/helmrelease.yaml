@@ -17,21 +17,22 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    ports:
+    otelCollector:
+      ports:
+            fluentforward:
+              enabled: true
+              containerPort: 24224
+              servicePort: 24224
+              nodePort: ""
+              protocol: TCP
+      config:
+        receivers:
           fluentforward:
-            enabled: true
-            containerPort: 24224
-            servicePort: 24224
-            nodePort: ""
-            protocol: TCP
-    config:
-      receivers:
-        fluentforward:
-          endpoint: 0.0.0.0:24224
-      service:
-        pipelines:
-          logs:
-            receivers: [otlp, fluentforward, httplogreceiver/json]
-            processors: [batch]
-            exporters: [clickhouselogsexporter, metadataexporter]
+            endpoint: 0.0.0.0:24224
+        service:
+          pipelines:
+            logs:
+              receivers: [otlp, fluentforward, httplogreceiver/json]
+              processors: [batch]
+              exporters: [clickhouselogsexporter, metadataexporter]
 
