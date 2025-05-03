@@ -16,3 +16,7 @@ spec:
   interval: 10m0s
   upgrade:
     crds: CreateReplace
+  values:
+    manager:
+      collectorImage:
+        repository: otel/opentelemetry-collector-k8s
