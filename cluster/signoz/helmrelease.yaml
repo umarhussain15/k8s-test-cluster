@@ -10,6 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: signoz
+        namespace: flux-system
   interval: 10m0s
   install:
     crds: CreateReplace
