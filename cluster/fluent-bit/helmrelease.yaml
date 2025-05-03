@@ -49,24 +49,31 @@ spec:
             Remove  kubernetes_container_hash
             Add k8s.cluster.name  k8s-test-cluster
       outputs: |
-        [OUTPUT]
-            Name                 opentelemetry
-            Match                *
-            Host                 signoz-otel-collector.signoz
-            Port                 4318
-            grpc                 off
-            Metrics_uri          /v1/metrics
-            Logs_uri             /v1/logs
-            Traces_uri           /v1/traces
-            Tls                  Off
-            Tls.verify           Off
-            Log_response_payload True
-            logs_span_id_message_key span_id
-            logs_trace_id_message_key trace_id
-            logs_severity_text_message_key loglevel
-            logs_severity_number_message_key lognum
-            # add user-defined labels
-            add_label app fluent-bit
+            [OUTPUT]
+                Name  forward
+                Match *
+                Host  signoz-otel-collector.signoz
+                Port  24224
+                Tls Off
+                Tls.verify  Off
+        # [OUTPUT]
+        #     Name                 opentelemetry
+        #     Match                *
+        #     Host                 signoz-otel-collector.signoz
+        #     Port                 4318
+        #     grpc                 off
+        #     Metrics_uri          /v1/metrics
+        #     Logs_uri             /v1/logs
+        #     Traces_uri           /v1/traces
+        #     Tls                  Off
+        #     Tls.verify           Off
+        #     Log_response_payload True
+        #     logs_span_id_message_key span_id
+        #     logs_trace_id_message_key trace_id
+        #     logs_severity_text_message_key loglevel
+        #     logs_severity_number_message_key lognum
+        #     # add user-defined labels
+        #     add_label app fluent-bit
     dashboards:
       enabled: true
     resources:
