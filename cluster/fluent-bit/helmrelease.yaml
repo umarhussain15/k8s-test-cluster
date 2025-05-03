@@ -66,8 +66,7 @@ spec:
             logs_severity_text_message_key loglevel
             logs_severity_number_message_key lognum
             # add user-defined labels
-            add_label            app fluent-bit
-            add_label           
+            add_label app fluent-bit
     dashboards:
       enabled: true
     resources:
