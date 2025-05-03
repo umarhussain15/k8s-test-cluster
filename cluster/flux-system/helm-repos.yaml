@@ -42,3 +42,18 @@ spec:
   interval: 1h0m0s
   url:  https://charts.signoz.io
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: open-telemetry
+spec:
+  interval: 1h0m0s
+  url:  https://open-telemetry.github.io/opentelemetry-helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: jetstack
+spec:
+  interval: 1h0m0s
+  url:  https://charts.jetstack.io
