@@ -18,6 +18,36 @@ spec:
     crds: CreateReplace
   values:
     config:
+      filters: |
+        [FILTER]
+            Name  kubernetes
+            Match kube.*
+            Merge_Log On
+            Merge_Log_Trim  On
+            Labels  Off
+            Annotations Off
+            K8S-Logging.Parser  Off
+            K8S-Logging.Exclude Off
+        [FILTER]
+            Name  nest
+            Match kube.*
+            Operation lift
+            Nested_under  kubernetes
+            Add_prefix  kubernetes_
+        [FILTER]
+            Name  modify
+            Match kube.*
+            Rename  log content
+            Rename  kubernetes_pod_name k8s.pod.name
+            Rename  kubernetes_namespace_name k8s.namespace.name
+            Remove  kubernetes_container_image
+            Remove  kubernetes_docker_id
+            Remove  kubernetes_container_name
+            Remove  kubernetes_pod_id
+            Remove  kubernetes_host
+            Remove  time
+            Remove  kubernetes_container_hash
+            Add k8s.cluster.name  k8s-test-cluster
       outputs: |
         [OUTPUT]
             Name                 opentelemetry
@@ -37,6 +67,7 @@ spec:
             logs_severity_number_message_key lognum
             # add user-defined labels
             add_label            app fluent-bit
+            add_label           
     dashboards:
       enabled: true
     resources:
