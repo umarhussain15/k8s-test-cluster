@@ -1,0 +1,30 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: keycloak-customer-realm-a
+spec:
+  approvePlan: "auto"
+  interval: 1m
+  path: ./terraform/keycloak/customer-realm
+  sourceRef:
+    kind: GitRepository
+    name: k8s-test-cluster
+    namespace: flux-system
+  vars:
+  - name: customer_realm_id
+    value: customer-a
+  - name: customer_realm_name
+    value: "Customer A"
+  - name: customer_realm_client_root_url
+    value: "https://customera.product.xyz"
+  varsFrom:
+  - kind: Secret
+    name: keycloak-terraform-admin-client
+    varsKeys:
+    - clientId:terraform_client_id
+    - clientSecret:terraform_client_secret
+  - kind: Secret
+    name: backend-client-secret-a
+    varsKeys:
+    - clientId:customer_realm_backend_client_id
+    - clientSecret:customer_realm_backend_client_secret

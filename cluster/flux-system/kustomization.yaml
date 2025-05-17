@@ -5,4 +5,4 @@ resources:
   - helm-repos.yaml
   - tofu-controller.yaml
   - git-repo-k8s-test-cluster.yaml
-  - terraform.yaml
+  - ./terraform

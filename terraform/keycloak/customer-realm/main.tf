@@ -1,29 +1,22 @@
 resource "keycloak_realm" "customer_realm" {
-  realm             = "customer"
+  realm             = var.customer_realm_id
   enabled           = true
-  display_name      = "customer realm"
-  display_name_html = "<b>customer realm</b>"
+  display_name      = var.customer_realm_name
+  display_name_html = "${var.customer_realm_name}"
 
-  login_theme = "base"
+  login_theme = var.customer_realm_theme
   registration_allowed = false
 
   access_code_lifespan = "1h"
 
+  duplicate_emails_allowed = false
+  verify_email= true
+
   ssl_required    = "external"
-  password_policy = "upperCase(1) and length(8) and forceExpiredPasswordChange(365) and notUsername"
+  password_policy = "upperCase(1) and length(12) and notUsername"
   attributes      = {
     mycustomAttribute = "myCustomValue"
   }
-
-#   smtp_server {
-#     host = "smtp.example.com"
-#     from = "example@example.com"
-
-#     auth {
-#       username = "tom"
-#       password = "password"
-#     }
-#   }
 
   internationalization {
     supported_locales = [
