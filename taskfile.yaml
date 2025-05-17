@@ -7,6 +7,8 @@ vars:
   # TEST password only in clear
   KEYCLOAK_PASSWORD: keycloakPassword123
   GIT_REPO_SSH: "ssh://git@github.com/umarhussain15/k8s-test-cluster.git"
+  KEYCLOAK_TERRAFORM_CLIENT_ID: terraform-client
+  KEYCLOAK_TERRAFORM_CLIENT_SECRET: some-very-strong-secret-id-here
 env:
   SSH_PRIVATE_KEY_PATH: $HOME/.ssh/github_ed25519_ssh
 tasks:
@@ -47,3 +49,5 @@ tasks:
     cmds:
       - task: setup-k8s-context
       - kubectl -n keycloak create secret generic keycloak-admin-password --from-literal=postgresPassword={{.POSTGRES_PASSWORD}} --from-literal=adminPassword={{.KEYCLOAK_PASSWORD}}
+      - kubectl -n keycloak create secret generic keycloak-terraform-admin-client --from-literal=clientId={{.KEYCLOAK_TERRAFORM_CLIENT_ID}} --from-literal=clientSecret={{.KEYCLOAK_TERRAFORM_CLIENT_SECRET}}
+      - kubectl -n flux-system create secret generic keycloak-terraform-admin-client --from-literal=clientId={{.KEYCLOAK_TERRAFORM_CLIENT_ID}} --from-literal=clientSecret={{.KEYCLOAK_TERRAFORM_CLIENT_SECRET}}
