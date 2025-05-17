@@ -67,7 +67,19 @@ spec:
       configuration:
         master.json: |
           {
-            "realm": "master",
+            "realm": "master",  
+            "users": [
+              {
+                "username": "service-account-terraform-client",
+                "enabled": true,
+                "serviceAccountClientId": "$(env:TERRAFORM_CLIENT_ID)",
+                "requiredActions": [],
+                "realmRoles": [
+                  "default-roles-master",
+                  "admin"
+                ]
+              }
+            ],
             "clients": [
               {
                 "clientId": "$(env:TERRAFORM_CLIENT_ID)",
