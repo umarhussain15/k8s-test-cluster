@@ -55,12 +55,12 @@ spec:
       - name: TERRAFORM_CLIENT_ID
         valueFrom:
           secretKeyRef:
-            name: keycloak-terraform-client
+            name: keycloak-terraform-admin-client
             key: clientId
       - name: TERRAFORM_CLIENT_SECRET
         valueFrom:
           secretKeyRef:
-            name: keycloak-terraform-client
+            name: keycloak-terraform-admin-client
             key: clientSecret
       configuration:
         master.json: |
