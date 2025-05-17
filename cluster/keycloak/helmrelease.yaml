@@ -54,12 +54,12 @@ spec:
       extraEnvVars:
       - name: TERRAFORM_CLIENT_ID
         valueFrom:
-          configMapRef:
+          configMapKeyRef:
             name: keycloak-terraform-client
             key: clientId
       - name: TERRAFORM_CLIENT_SECRET
         valueFrom:
-          configMapRef:
+          configMapKeyRef:
             name: keycloak-terraform-client
             key: clientSecret
       configuration:
