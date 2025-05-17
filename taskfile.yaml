@@ -16,6 +16,15 @@ tasks:
     internal: true
     cmds:
       - kubectl config use-context kind-{{.CLUSTER_NAME}}
+  delete-cluster:
+    desc:  deletes the kind cluster
+    cmds:
+      - |
+        if kind get clusters | grep {{.CLUSTER_NAME}} &> /dev/null; then
+          kind delete cluster -n {{.CLUSTER_NAME}}
+        else
+          echo "{{.CLUSTER_NAME}} is not present"
+        fi 
   setup-cluster:
     desc: Create kind cluster if missing
     cmds:
@@ -25,6 +34,10 @@ tasks:
         else
           kind create cluster --name "{{.CLUSTER_NAME}}" --image "kindest/node:{{.K8S_VERSION}}" --wait 180s
         fi
+      - task: setup-k8s-context
+      - kubectl create namespace flux-system -o yaml --dry-run=client | kubectl apply -f -
+      - kubectl create namespace keycloak -o yaml --dry-run=client | kubectl apply -f -
+
   setup-flux-operator:
     desc:  Install flux operator with helm
     cmds:
@@ -43,12 +56,21 @@ tasks:
     desc:  Apply the FluxInstance with kubectl to cluster
     cmds:
       - task: setup-k8s-context
-      - kubectl apply -f cluster/flux-system/flux-instance.yaml
-      - kubectl apply -f cluster/flux-system/tofu-controller.yaml
+      - task: add-flux-ssh-secret
+      - kubectl -n flux-system apply -f cluster/flux-system/flux-instance.yaml
+      - |
+          until kubectl get crd helmrepositories.source.toolkit.fluxcd.io >/dev/null 2>&1; do
+            echo "Waiting for flux CRDs to be available..."
+            sleep 5
+          done
+      - kubectl -n flux-system apply -f cluster/flux-system/helm-repos.yaml
+      - kubectl -n flux-system apply -f cluster/flux-system/tofu-controller.yaml
   create-secrets:
     desc: Create existing secrets needed
+    deps:
+      - task: setup-cluster
     cmds:
       - task: setup-k8s-context
-      - kubectl -n keycloak create secret generic keycloak-admin-password --from-literal=postgresPassword={{.POSTGRES_PASSWORD}} --from-literal=adminPassword={{.KEYCLOAK_PASSWORD}}
-      - kubectl -n keycloak create secret generic keycloak-terraform-admin-client --from-literal=clientId={{.KEYCLOAK_TERRAFORM_CLIENT_ID}} --from-literal=clientSecret={{.KEYCLOAK_TERRAFORM_CLIENT_SECRET}}
-      - kubectl -n flux-system create secret generic keycloak-terraform-admin-client --from-literal=clientId={{.KEYCLOAK_TERRAFORM_CLIENT_ID}} --from-literal=clientSecret={{.KEYCLOAK_TERRAFORM_CLIENT_SECRET}}
+      - kubectl -n keycloak create secret generic keycloak-admin-password --from-literal=postgresPassword={{.POSTGRES_PASSWORD}} --from-literal=adminPassword={{.KEYCLOAK_PASSWORD}} -o yaml --dry-run=client | kubectl apply -f -
+      - kubectl -n keycloak create secret generic keycloak-terraform-admin-client --from-literal=clientId={{.KEYCLOAK_TERRAFORM_CLIENT_ID}} --from-literal=clientSecret={{.KEYCLOAK_TERRAFORM_CLIENT_SECRET}} -o yaml --dry-run=client | kubectl apply -f -
+      - kubectl -n flux-system create secret generic keycloak-terraform-admin-client --from-literal=clientId={{.KEYCLOAK_TERRAFORM_CLIENT_ID}} --from-literal=clientSecret={{.KEYCLOAK_TERRAFORM_CLIENT_SECRET}} -o yaml --dry-run=client | kubectl apply -f -
