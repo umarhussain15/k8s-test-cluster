@@ -15,7 +15,7 @@ spec:
   interval: 1m
   url: https://flux-iac.github.io/tofu-controller
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: bitnami
@@ -25,7 +25,7 @@ spec:
   url: oci://registry-1.docker.io/bitnamicharts
 ---
 
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: fluent
@@ -34,7 +34,7 @@ spec:
   url:  https://fluent.github.io/helm-charts
 ---
 
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: signoz
@@ -42,7 +42,7 @@ spec:
   interval: 1h0m0s
   url:  https://charts.signoz.io
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: open-telemetry
@@ -50,7 +50,7 @@ spec:
   interval: 1h0m0s
   url:  https://open-telemetry.github.io/opentelemetry-helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: jetstack
