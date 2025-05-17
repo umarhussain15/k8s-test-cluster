@@ -38,6 +38,7 @@ resource "keycloak_openid_client" "customer_backend" {
   web_origins = [
     "+"
   ]
+  root_url = var.customer_realm_client_root_url
   valid_redirect_uris = [
     "${var.customer_realm_client_root_url}/openid-callback"
   ]
