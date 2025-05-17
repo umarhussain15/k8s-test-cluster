@@ -44,6 +44,7 @@ tasks:
     cmds:
       - task: setup-k8s-context
       - kubectl apply -f cluster/flux-system/flux-instance.yaml
+      - kubectl apply -f cluster/flux-system/tofu-controller.yaml
   create-secrets:
     desc: Create existing secrets needed
     cmds:
