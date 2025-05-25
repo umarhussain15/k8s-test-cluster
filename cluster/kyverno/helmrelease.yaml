@@ -1,0 +1,37 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: kyverno
+spec:
+  chart:
+    spec:
+      chart: kyverno
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+        namespace: flux-system
+      version: '*'
+  install:
+    crds: CreateReplace
+  interval: 10m0s
+  upgrade:
+    crds: CreateReplace
+  values:
+    admissionController:
+      replicas: 3
+    backgroundController:
+      replicas: 2
+    cleanupController:
+      replicas: 2
+    reportsController:
+      replicas: 2
+    config:
+      resourceFiltersExcludeNamespaces:
+        - flux-system
+        - keycloak
+        - cert-manager
+        # kind cluster specific -start
+        - local-path-storage
+        - kube-node-lease
+        - kube-public
+        # kind cluster specific -end
