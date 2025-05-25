@@ -16,7 +16,7 @@ spec:
   - name: customer_realm_name
     value: "Customer openuinson"
   - name: customer_realm_client_root_url
-    value: "https://localhost:8443"
+    value: "http://k8sou.127-0-0-1.nip.io"
   varsFrom:
   - kind: Secret
     name: keycloak-terraform-admin-client
