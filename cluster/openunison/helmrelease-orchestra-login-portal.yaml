@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: orchestra-login-portal
+spec:
+  chart:
+    spec:
+      chart: orchestra-login-portal
+      sourceRef:
+        kind: HelmRepository
+        name: tremolo
+        namespace: flux-system
+      version: '*'
+  dependsOn:
+  - name: openunison-operator
+  interval: 10m0s
+  values:
+    enable_impersonation: true
+    k8s_cluster_name: k8s-test-cluster
+    network:
+      ingress_type: do-not-install
+      openunison_host: localhost:8443
+      dashboard_host: localhost:8444
+      api_server_host: localhost:8445
+      force_redirect_to_tls: false
+    oidc:
+      client_id: customer-backend
+      issuer: http://localhost:8080/auth/realms/customer-openunison/
+      user_in_idtoken: false
+      domain: ""
+      scopes: openid email profile
+      claims:
+        sub: sub
+        email: email
+        given_name: given_name
+        family_name: family_name
+        display_name: name
+        groups: groups

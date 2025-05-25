@@ -1,0 +1,9 @@
+kind: Kustomization
+namespace:  openunison
+resources:
+  - namespace.yaml
+  - orchestra-test-secrets.yaml
+  - cluster-role-binding-cluster-admin.yaml
+  - helmrelease-operator.yaml
+  - helmrelease-orchestra-login-portal.yaml
+  - helmrelease-orchestra.yaml

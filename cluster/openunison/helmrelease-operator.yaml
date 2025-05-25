@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: openunison-operator
+spec:
+  chart:
+    spec:
+      chart: openunison-operator
+      sourceRef:
+        kind: HelmRepository
+        name: tremolo
+        namespace: flux-system
+      version: '*'
+  install:
+    crds: CreateReplace
+  interval: 10m0s
+  upgrade:
+    crds: CreateReplace

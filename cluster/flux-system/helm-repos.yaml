@@ -66,3 +66,12 @@ metadata:
 spec:
   interval: 1h0m0s
   url:  https://kyverno.github.io/kyverno/
+
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: tremolo
+spec:
+  interval: 1h0m0s
+  url:  https://nexus.tremolo.io/repository/helm/
