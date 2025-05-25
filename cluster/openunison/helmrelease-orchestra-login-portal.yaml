@@ -19,9 +19,9 @@ spec:
     k8s_cluster_name: k8s-test-cluster
     network:
       ingress_type: do-not-install
-      openunison_host: localhost:8443
-      dashboard_host: localhost:8444
-      api_server_host: localhost:8445
+      # openunison_host: localhost:8443
+      # dashboard_host: localhost:8444
+      # api_server_host: localhost:8445
       force_redirect_to_tls: false
     oidc:
       client_id: customer-backend
