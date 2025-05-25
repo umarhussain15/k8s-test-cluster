@@ -19,13 +19,13 @@ spec:
     k8s_cluster_name: k8s-test-cluster
     network:
       ingress_type: do-not-install
-      # openunison_host: localhost:8443
-      # dashboard_host: localhost:8444
-      # api_server_host: localhost:8445
+      openunison_host: k8sou.127-0-0-1.nip.io
+      dashboard_host: k8sdb.127-0-0-1.nip.io
+      api_server_host: k8sapi.127-0-0-1.nip.io
       force_redirect_to_tls: false
     oidc:
       client_id: customer-backend
-      issuer: http://localhost:8080/auth/realms/customer-openunison/
+      issuer: http://keycloak.127-0-0-1.nip.io:8080/auth/realms/customer-openunison/
       user_in_idtoken: false
       domain: ""
       scopes: openid email profile
