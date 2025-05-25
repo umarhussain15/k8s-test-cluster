@@ -2,3 +2,4 @@ kind: Kustomization
 resources:
   - ./customer-a
   - ./customer-b
+  - ./openunison
